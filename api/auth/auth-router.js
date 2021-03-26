@@ -6,14 +6,13 @@ const jwt = require('jsonwebtoken')
 const { jwtSecret } = require('../../config/secrets')
 
 const Users = require('../users/users-model')
-const { usernameUnique } = require('../middleware/auth-middleware')
+const { usernameUnique, validateCredentials } = require('../middleware/auth-middleware')
 
 //endpoints
 // /api/auth/register
-router.post('/register', usernameUnique, (req, res, next) => {
+router.post('/register', usernameUnique, validateCredentials, (req, res, next) => {
   const user = req.body
 
-  //has username and pass
   if (isValid(user)) {
     //hash the password
     user.password = bcrypt.hashSync(user.password, process.env.BCRYPT_ROUNDS || 8) //2^8
