@@ -6,11 +6,11 @@ const jwt = require('jsonwebtoken')
 const { jwtSecret } = require('../../config/secrets')
 
 const Users = require('../users/users-model')
-const { usernameUnique, validateCredentials } = require('../middleware/auth-middleware')
+const { usernameUnique } = require('../middleware/auth-middleware')
 
 //endpoints
 // /api/auth/register
-router.post('/register', usernameUnique, validateCredentials, (req, res, next) => {
+router.post('/register', usernameUnique, (req, res, next) => {
   const user = req.body
 
   if (isValid(user)) {
@@ -25,7 +25,7 @@ router.post('/register', usernameUnique, validateCredentials, (req, res, next) =
       })
       .catch(next)
   } else {
-    res.status(400).json({ message: "username and password required" })
+    res.status(400).json("username and password required")
   }
 });
 
