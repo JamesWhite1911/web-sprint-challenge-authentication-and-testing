@@ -1,4 +1,4 @@
-// do not make changes to this file
+//data
 const jokes = [
   {
     "id": "0189hNRf2g",
